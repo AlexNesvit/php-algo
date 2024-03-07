@@ -13,3 +13,10 @@
     </form>
 </body>
 </html>
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["passwords"])) {
+        // Crypter le mot de pass avec BCRYPT
+        $password = $_POST["password"];
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    }
+    ?>
