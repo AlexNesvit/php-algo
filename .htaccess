@@ -1,0 +1,19 @@
+AuthType Basic
+AuthName "Accès restreint"
+<!-- AuthUserFile /Users/user/Sites/php-algo/.htpasswd pour Mac-->
+AuthUserFile /Users/wamp64/www/php-algo/.htpasswd
+Require valid-user
+
+RewriteEngine On 
+DirectoryIndex public/index.php 
+
+<!-- Redirige toutes les requêtes pour les fichiers php dans 'public/pages' comme si elles étaint à la racine. -->
+RewriteCond %{REQUEST_URI} !public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^\.]+)$ public/pages/$1.php [NC,L]
+
+<!-- Si la requête est pour la racine, servir 'public/index.php'. -->
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^$ public/index.php [QSA,L]
